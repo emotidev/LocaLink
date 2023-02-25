@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/krshkun/LocaLink/compare/v0.6.0...v0.7.0) (2023-02-25)
+
+
+### Features
+
+* added api routes ([7b7e3fb](https://github.com/krshkun/LocaLink/commit/7b7e3fb0b538e9da1627d88b8820fbf0b0ec0985))
+
+
+
 # [0.6.0](https://github.com/krshkun/LocaLink/compare/v0.5.1...v0.6.0) (2023-02-25)
 
 
