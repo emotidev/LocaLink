@@ -1,3 +1,12 @@
+## [0.5.1](https://github.com/krshkun/LocaLink/compare/v0.5.0...v0.5.1) (2023-02-25)
+
+
+### Bug Fixes
+
+* I solved autehntication 🥺 ([339375c](https://github.com/krshkun/LocaLink/commit/339375c137537db015db6a32a23c1c0a8a286918))
+
+
+
 # [0.5.0](https://github.com/krshkun/LocaLink/compare/v0.4.0...v0.5.0) (2023-02-25)
 
 
