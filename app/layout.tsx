@@ -38,7 +38,7 @@ export default async function RootLayout({
             </NavigationMenu.Item>
           ) : (
             <NavigationMenu.Item>
-              <Link href="/api/auth/signin/auth0">Sign in</Link>
+              <Link href="/api/auth/signin">Sign in</Link>
             </NavigationMenu.Item>
           )}
         </div>

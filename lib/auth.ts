@@ -1,21 +1,16 @@
 import { NextAuthOptions } from "next-auth";
-import Auth0Provider from "next-auth/providers/auth0"
+import GitHubProvider from "next-auth/providers/github";
 import prisma from "./prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const authOptions: NextAuthOptions = {
   providers: [
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID as string,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
-      issuer: process.env.AUTH0_DOMAIN
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     })
   ],
   adapter: PrismaAdapter(prisma),
-  session: {
-    strategy: 'database',
-    maxAge: 90 * 24 * 60 * 60,
-  }
 }
 
 export default authOptions
