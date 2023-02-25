@@ -44,6 +44,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
+  profile       Profile?
+  following     Profile[] @relation("Following")
+  followers     Profile[] @relation("Followers")
+  createdChats  Chat[]    @relation("from")
+  receivedChats Chat[]    @relation("to")
 }
 
 model VerificationToken {
@@ -53,4 +59,60 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String?
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  culture   Culture  @relation(fields: [cultureId], references: [id])
+  cultureId String
+}
+
+model Profile {
+  id        String  @id @default(cuid())
+  phone     String  @unique
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String  @unique
+  following User[]  @relation("Following")
+  followers User[]  @relation("Followers")
+  culture   Culture @relation(fields: [cultureId], references: [id])
+  cultureId String
+  chats     Chat[]
+}
+
+model Culture {
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  posts     Post[]
+  profiles  Profile[]
+}
+
+model Chat {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+  to        User      @relation("to", fields: [toId], references: [id])
+  from      User      @relation("from", fields: [fromId], references: [id])
+  toId      String
+  fromId    String
+  Profile   Profile?  @relation(fields: [profileId], references: [id])
+  profileId String?
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  chatId    String
+  fromUser  Boolean
 }
