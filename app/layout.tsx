@@ -6,7 +6,6 @@ import { NavigationMenu, BaseLayout } from 'kresco/esm/src'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
-import Image from 'next/image'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700', '800', '900'],
