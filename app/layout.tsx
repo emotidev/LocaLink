@@ -4,6 +4,7 @@ import * as React from 'react'
 import { NavigationMenu, BaseLayout } from 'kresco/esm/src'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -12,11 +13,13 @@ const poppins = Poppins({
   variable: '--font-poppins'
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: {
   children: React.ReactNode
 }) {
+  const session = await getServerSession()
+
   return (
     <BaseLayout className={poppins.variable}>
       <NavigationMenu.Root>
@@ -29,13 +32,22 @@ export default function RootLayout({
           <NavigationMenu.Item>
             <Link href="https://github.com/krshkun/localink">GitHub</Link>
           </NavigationMenu.Item>
+          {session ? (
+            <NavigationMenu.Item>
+              <Link href="/api/auth/signout">Sign out</Link>
+            </NavigationMenu.Item>
+          ) : (
+            <NavigationMenu.Item>
+              <Link href="/api/auth/signin/auth0">Sign in</Link>
+            </NavigationMenu.Item>
+          )}
         </div>
         <div className="md:hidden">
           <NavigationMenu.Item>
             <NavigationMenu.Trigger>Menu</NavigationMenu.Trigger>
             <NavigationMenu.Content direction="bottom-right">
               <ul className="flex flex-col space-y-2">
-                <NavigationMenu.Link href="https://github.com/krshkun/accsensible">
+                <NavigationMenu.Link href="https://github.com/krshkun/localink">
                   View source code
                 </NavigationMenu.Link>
               </ul>
