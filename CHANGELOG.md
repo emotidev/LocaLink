@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/krshkun/LocaLink/compare/v0.5.1...v0.6.0) (2023-02-25)
+
+
+### Features
+
+* home page ([13cf144](https://github.com/krshkun/LocaLink/commit/13cf14412df2a1b74196a1020ce9e0a0a8d16d10))
+
+
+
 ## [0.5.1](https://github.com/krshkun/LocaLink/compare/v0.5.0...v0.5.1) (2023-02-25)
 
 
