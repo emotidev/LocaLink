@@ -14,53 +14,35 @@ export async function GET(req: Request) {
     following: true
   }
 
-  const all = url.searchParams.get('all') === 'true'
   const id = url.searchParams.get('id')
 
-  if (all) {
-    try {
-      const profiles = await prisma.profile.findMany({
-        include
-      })
-
-      return new Response(JSON.stringify(profiles), {
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-    } catch (err) {
-      return new Response(JSON.stringify(err), {
-        status: 500
-      })
-    }
+  if (!id) {
+    return new Response(JSON.stringify({ error: 'Missing id' }), {
+      status: 400
+    })
   }
 
-  if (id) {
-    try {
-      const profile = await prisma.profile.findUnique({
-        where: { id: id },
-        include
-      })
+  try {
+    const profile = await prisma.profile.findUnique({
+      where: { id: id },
+      include
+    })
 
-      if (!profile) {
-        return new Response(
-          JSON.stringify({ error: 'User/Profile not found' }),
-          {
-            status: 404
-          }
-        )
-      }
-
-      return new Response(JSON.stringify(profile), {
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
-    } catch (err) {
-      return new Response(JSON.stringify(err), {
-        status: 500
+    if (!profile) {
+      return new Response(JSON.stringify({ error: 'User/Profile not found' }), {
+        status: 404
       })
     }
+
+    return new Response(JSON.stringify(profile), {
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+  } catch (err) {
+    return new Response(JSON.stringify(err), {
+      status: 500
+    })
   }
 }
 

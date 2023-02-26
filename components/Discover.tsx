@@ -8,7 +8,7 @@ import { Chat, Culture, Post, Prisma, Profile, User } from '@prisma/client'
 import Link from 'next/link'
 
 export default function Discover() {
-  const profiles = useSwr('/api/profile?all=true', fetcher)
+  const profiles = useSwr('/api/profile/all', fetcher)
   const cultures = useSwr('/api/culture?all=true', fetcher)
 
   return (
