@@ -56,8 +56,8 @@ export default function Profile({
             <h2>{profileData.user.name}</h2>
             <div className="text-lg">{profileData.culture.name} Culture</div>
             <div>
-              {profileData._count.chats} chats, {profileData._count.followers}{' '}
-              followers, {profileData._count.following} following
+              {profileData.chats.length} chats, {profileData.followers.length}{' '}
+              followers, {profileData.following.length} following
             </div>
             {session && session.user?.email !== profileData.user.email && (
               <div className="flex gap-4">

@@ -18,13 +18,7 @@ export default async function Page({
     include: {
       author: {
         include: {
-          user: true,
-          posts: true,
-          followers: true,
-          following: true,
-          chats: true,
-          culture: true,
-          _count: true
+          user: true
         }
       }
     }
