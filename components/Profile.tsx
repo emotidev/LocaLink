@@ -22,7 +22,7 @@ export default function Profile({
   session: Session | null
 }) {
   const profile: {
-    data?: (DbProfile & {
+    data?: DbProfile & {
       _count: Prisma.ProfileCountOutputType
       user: User
       culture: Culture
@@ -30,12 +30,14 @@ export default function Profile({
       posts: Post[]
       followers: User[]
       following: User[]
-    })[]
+    }
     error?: Error
     isLoading: boolean
   } = useSwr(`/api/profile?id=${id}`, fetcher)
 
-  const profileData = profile.data?.[0]
+  const profileData = profile.data
+
+  console.log(profileData)
 
   return (
     <div className="w-full flex flex-col items-center justify-center space-y-8 p-4 xs:p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24 2xl:p-28">
@@ -58,8 +60,32 @@ export default function Profile({
             </div>
             {session && session.user?.email !== profileData.user.email && (
               <div className="flex gap-4">
-                <button className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2">
-                  Follow
+                <button
+                  className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2"
+                  onClick={() => {
+                    const unfollow = profileData.followers.find(
+                      (follower) => follower.email === session.user?.email
+                    )
+
+                    fetch('/api/profile/follow', {
+                      method: unfollow ? 'DELETE' : 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({
+                        id: profileData.id
+                      })
+                    }).then((res) => {
+                      if (res.ok) {
+                        alert(unfollow ? 'Unfollowed!' : 'Followed!')
+                      }
+                    })
+                  }}>
+                  {profileData.followers.find(
+                    (follower) => follower.email === session.user?.email
+                  )
+                    ? 'Unfollow'
+                    : 'Follow'}
                 </button>
                 <button className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2">
                   Message

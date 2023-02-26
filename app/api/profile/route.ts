@@ -2,8 +2,6 @@ import prisma from 'lib/prisma'
 import { getServerSession } from 'next-auth'
 
 export async function GET(req: Request) {
-  const session = await getServerSession()
-
   const url = new URL(req.url)
 
   const include = {
@@ -16,24 +14,11 @@ export async function GET(req: Request) {
     following: true
   }
 
-  const me = new Boolean(url.searchParams.get('me'))
-  const all = new Boolean(url.searchParams.get('all'))
+  const all = url.searchParams.get('all') === 'true'
   const id = url.searchParams.get('id')
 
-  if (!me && !all && id !== null) {
-    return new Response(JSON.stringify({ error: 'Invalid data' }), {
-      status: 400
-    })
-  }
-
-  if (me && !session) {
-    return new Response(JSON.stringify({ error: 'Not authenticated' }), {
-      status: 401
-    })
-  }
-
-  try {
-    if (all) {
+  if (all) {
+    try {
       const profiles = await prisma.profile.findMany({
         include
       })
@@ -43,47 +28,39 @@ export async function GET(req: Request) {
           'content-type': 'application/json'
         }
       })
-    }
-
-    const user = await prisma.user.findUnique({
-      where: me
-        ? { email: session?.user?.email as string }
-        : { id: id as string }
-    })
-
-    const profile = await prisma.profile.findUnique({
-      where: {
-        userId: user?.id as string
-      },
-      include: {
-        _count: true,
-        user: true,
-        culture: {
-          select: {
-            name: true
-          }
-        },
-        chats: true,
-        followers: true,
-        following: true
-      }
-    })
-
-    if (!user || !profile) {
-      return new Response(JSON.stringify({ error: 'User/Profile not found' }), {
-        status: 404
+    } catch (err) {
+      return new Response(JSON.stringify(err), {
+        status: 500
       })
     }
+  }
 
-    return new Response(JSON.stringify(profile), {
-      headers: {
-        'content-type': 'application/json'
+  if (id) {
+    try {
+      const profile = await prisma.profile.findUnique({
+        where: { id: id },
+        include
+      })
+
+      if (!profile) {
+        return new Response(
+          JSON.stringify({ error: 'User/Profile not found' }),
+          {
+            status: 404
+          }
+        )
       }
-    })
-  } catch (err) {
-    return new Response(JSON.stringify(err), {
-      status: 500
-    })
+
+      return new Response(JSON.stringify(profile), {
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+    } catch (err) {
+      return new Response(JSON.stringify(err), {
+        status: 500
+      })
+    }
   }
 }
 
