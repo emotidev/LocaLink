@@ -1,3 +1,17 @@
+# [0.9.0](https://github.com/krshkun/LocaLink/compare/v0.8.0...v0.9.0) (2023-02-26)
+
+
+### Bug Fixes
+
+* deployment ([7e821a5](https://github.com/krshkun/LocaLink/commit/7e821a507fe049fae1a423d1b53723be15ae1b5a))
+
+
+### Features
+
+* post ui ([00fd60f](https://github.com/krshkun/LocaLink/commit/00fd60fc8c71bcf649da9204a19f24f0951e9481))
+
+
+
 # [0.8.0](https://github.com/krshkun/LocaLink/compare/v0.7.0...v0.8.0) (2023-02-26)
 
 
@@ -36,15 +50,6 @@
 ### Bug Fixes
 
 * I solved autehntication 🥺 ([339375c](https://github.com/krshkun/LocaLink/commit/339375c137537db015db6a32a23c1c0a8a286918))
-
-
-
-# [0.5.0](https://github.com/krshkun/LocaLink/compare/v0.4.0...v0.5.0) (2023-02-25)
-
-
-### Features
-
-* prisma authentication ([a74ff1e](https://github.com/krshkun/LocaLink/commit/a74ff1ee8dad130408d621efea162a422b54cc14))
 
 
 
