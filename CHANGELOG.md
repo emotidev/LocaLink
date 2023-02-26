@@ -1,3 +1,12 @@
+## [0.9.3](https://github.com/krshkun/LocaLink/compare/v0.9.2...v0.9.3) (2023-02-26)
+
+
+### Bug Fixes
+
+* broken page /profile/[id].tsx ([43b8b4f](https://github.com/krshkun/LocaLink/commit/43b8b4fc73a9b4cd793e02919c6d13c7b7d5666c))
+
+
+
 ## [0.9.2](https://github.com/krshkun/LocaLink/compare/v0.9.1...v0.9.2) (2023-02-26)
 
 
@@ -41,15 +50,6 @@
 ### Features
 
 * profile pages & discover ([837fd6d](https://github.com/krshkun/LocaLink/commit/837fd6d907f1d9dd861d799b37d6dfd7663e2e83))
-
-
-
-# [0.7.0](https://github.com/krshkun/LocaLink/compare/v0.6.0...v0.7.0) (2023-02-25)
-
-
-### Features
-
-* added api routes ([7b7e3fb](https://github.com/krshkun/LocaLink/commit/7b7e3fb0b538e9da1627d88b8820fbf0b0ec0985))
 
 
 
