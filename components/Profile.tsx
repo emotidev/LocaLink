@@ -13,6 +13,7 @@ import {
   User
 } from '@prisma/client'
 import { Session } from 'next-auth'
+import Link from 'next/link'
 
 export default function Profile({
   id,
@@ -22,7 +23,7 @@ export default function Profile({
   session: Session | null
 }) {
   const profile: {
-    data?: (DbProfile & {
+    data?: DbProfile & {
       _count: Prisma.ProfileCountOutputType
       user: User
       culture: Culture
@@ -30,12 +31,14 @@ export default function Profile({
       posts: Post[]
       followers: User[]
       following: User[]
-    })[]
+    }
     error?: Error
     isLoading: boolean
   } = useSwr(`/api/profile?id=${id}`, fetcher)
 
-  const profileData = profile.data?.[0]
+  const profileData = profile.data
+
+  console.log(profileData)
 
   return (
     <div className="w-full flex flex-col items-center justify-center space-y-8 p-4 xs:p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24 2xl:p-28">
@@ -53,15 +56,39 @@ export default function Profile({
             <h2>{profileData.user.name}</h2>
             <div className="text-lg">{profileData.culture.name} Culture</div>
             <div>
-              {profileData._count.chats} chats, {profileData._count.followers}{' '}
-              followers, {profileData._count.following} following
+              {profileData.chats.length} chats, {profileData.followers.length}{' '}
+              followers, {profileData.following.length} following
             </div>
             {session && session.user?.email !== profileData.user.email && (
               <div className="flex gap-4">
-                <button className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2">
-                  Follow
+                <button
+                  className="bg-slate-2 dark:bg-slateDark-2 rounded-sm py-1 px-3"
+                  onClick={() => {
+                    const unfollow = profileData.followers.find(
+                      (follower) => follower.email === session.user?.email
+                    )
+
+                    fetch('/api/profile/follow', {
+                      method: unfollow ? 'DELETE' : 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({
+                        id: profileData.id
+                      })
+                    }).then((res) => {
+                      if (res.ok) {
+                        alert(unfollow ? 'Unfollowed!' : 'Followed!')
+                      }
+                    })
+                  }}>
+                  {profileData.followers.find(
+                    (follower) => follower.email === session.user?.email
+                  )
+                    ? 'Unfollow'
+                    : 'Follow'}
                 </button>
-                <button className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2">
+                <button className="bg-slate-2 dark:bg-slateDark-2 rounded-sm py-1 px-3">
                   Message
                 </button>
               </div>
@@ -75,15 +102,18 @@ export default function Profile({
               )}
               {profileData.posts.map((post) => (
                 <div
-                  className="flex flex-col items-center space-y-4"
+                  className="flex flex-col bg-slate-2 dark:bg-slateDark-2  space-y-2 p-4 rounded"
                   key={post.id}>
-                  <div className="text-lg">{post.title}</div>
+                  <h3>{post.title}</h3>
                   <div className="text-lg">
-                    {Intl.DateTimeFormat('en-us').format(post.createdAt)}
+                    {new Date(post.createdAt).toLocaleDateString()}
                   </div>
-                  <div className="text-lg">
-                    {post.content?.substring(0, 50 - 1)}
-                  </div>
+                  <div>{post.content?.substring(0, 200 - 1)}...</div>
+                  <Link href={`/posts/${post.id}`}>
+                    <button className="bg-slate-3 dark:bg-slateDark-3 rounded p-2">
+                      Read More
+                    </button>
+                  </Link>
                 </div>
               ))}
             </div>

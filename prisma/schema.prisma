@@ -81,7 +81,6 @@ model Profile {
   followers User[]  @relation("Followers")
   culture   Culture @relation(fields: [cultureId], references: [id])
   cultureId String
-  chats     Chat[]
   posts     Post[]
 }
 
@@ -103,8 +102,6 @@ model Chat {
   from      User      @relation("from", fields: [fromId], references: [id])
   toId      String
   fromId    String
-  Profile   Profile?  @relation(fields: [profileId], references: [id])
-  profileId String?
 }
 
 model Message {
