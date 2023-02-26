@@ -1,3 +1,12 @@
+## [0.9.1](https://github.com/krshkun/LocaLink/compare/v0.9.0...v0.9.1) (2023-02-26)
+
+
+### Bug Fixes
+
+* error ([612de7b](https://github.com/krshkun/LocaLink/commit/612de7bc90a78890563dfb17ae330cefa9580c91))
+
+
+
 # [0.9.0](https://github.com/krshkun/LocaLink/compare/v0.8.0...v0.9.0) (2023-02-26)
 
 
@@ -41,15 +50,6 @@
 ### Features
 
 * home page ([13cf144](https://github.com/krshkun/LocaLink/commit/13cf14412df2a1b74196a1020ce9e0a0a8d16d10))
-
-
-
-## [0.5.1](https://github.com/krshkun/LocaLink/compare/v0.5.0...v0.5.1) (2023-02-25)
-
-
-### Bug Fixes
-
-* I solved autehntication 🥺 ([339375c](https://github.com/krshkun/LocaLink/commit/339375c137537db015db6a32a23c1c0a8a286918))
 
 
 
