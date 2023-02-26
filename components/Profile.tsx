@@ -13,6 +13,7 @@ import {
   User
 } from '@prisma/client'
 import { Session } from 'next-auth'
+import Link from 'next/link'
 
 export default function Profile({
   id,
@@ -101,15 +102,18 @@ export default function Profile({
               )}
               {profileData.posts.map((post) => (
                 <div
-                  className="flex flex-col items-center space-y-4"
+                  className="flex flex-col bg-slate-2 dark:bg-slateDark-2  space-y-2 p-4 rounded"
                   key={post.id}>
-                  <div className="text-lg">{post.title}</div>
+                  <h3>{post.title}</h3>
                   <div className="text-lg">
-                    {Intl.DateTimeFormat('en-us').format(post.createdAt)}
+                    {new Date(post.createdAt).toLocaleDateString()}
                   </div>
-                  <div className="text-lg">
-                    {post.content?.substring(0, 50 - 1)}
-                  </div>
+                  <div>{post.content?.substring(0, 200 - 1)}...</div>
+                  <Link href={`/posts/${post.id}`}>
+                    <button className="bg-slate-3 dark:bg-slateDark-3 rounded p-2">
+                      Read More
+                    </button>
+                  </Link>
                 </div>
               ))}
             </div>

@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     })
   }
 
-  const { title, content } = await req.json()
+  const { title, content } = JSON.parse(await req.text())
 
   if (typeof title !== 'string' || typeof content !== 'string') {
     return new Response(JSON.stringify({ error: 'Invalid data' }), {
@@ -112,8 +112,8 @@ export async function POST(req: Request) {
   try {
     const post = await prisma.post.create({
       data: {
-        title,
-        content,
+        title: decodeURIComponent(title),
+        content: decodeURIComponent(content),
         author: {
           connect: {
             id: author.id
