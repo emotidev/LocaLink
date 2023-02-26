@@ -61,7 +61,7 @@ export default function Profile({
             {session && session.user?.email !== profileData.user.email && (
               <div className="flex gap-4">
                 <button
-                  className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2"
+                  className="bg-slate-2 dark:bg-slateDark-2 rounded-sm py-1 px-3"
                   onClick={() => {
                     const unfollow = profileData.followers.find(
                       (follower) => follower.email === session.user?.email
@@ -87,7 +87,7 @@ export default function Profile({
                     ? 'Unfollow'
                     : 'Follow'}
                 </button>
-                <button className="bg-slate-2 dark:bg-slateDark-2 text-slate-1 dark:text-slateDark-1 rounded-sm p-2">
+                <button className="bg-slate-2 dark:bg-slateDark-2 rounded-sm py-1 px-3">
                   Message
                 </button>
               </div>
