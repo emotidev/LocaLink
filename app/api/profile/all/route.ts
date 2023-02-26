@@ -5,7 +5,6 @@ export async function GET() {
     _count: true,
     user: true,
     culture: true,
-    chats: true,
     posts: true,
     followers: true,
     following: true

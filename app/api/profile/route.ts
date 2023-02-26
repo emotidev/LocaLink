@@ -8,7 +8,6 @@ export async function GET(req: Request) {
     _count: true,
     user: true,
     culture: true,
-    chats: true,
     posts: true,
     followers: true,
     following: true
