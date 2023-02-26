@@ -5,7 +5,6 @@ import * as React from 'react'
 import useSwr from 'swr'
 import fetcher from 'lib/fetcher'
 import {
-  Chat,
   Culture,
   Post,
   Prisma,
@@ -27,7 +26,6 @@ export default function Profile({
       _count: Prisma.ProfileCountOutputType
       user: User
       culture: Culture
-      chats: Chat[]
       posts: Post[]
       followers: User[]
       following: User[]
@@ -37,8 +35,6 @@ export default function Profile({
   } = useSwr(`/api/profile?id=${id}`, fetcher)
 
   const profileData = profile.data
-
-  console.log(profileData)
 
   return (
     <div className="w-full flex flex-col items-center justify-center space-y-8 p-4 xs:p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24 2xl:p-28">
@@ -56,8 +52,8 @@ export default function Profile({
             <h2>{profileData.user.name}</h2>
             <div className="text-lg">{profileData.culture.name} Culture</div>
             <div>
-              {profileData.chats.length} chats, {profileData.followers.length}{' '}
-              followers, {profileData.following.length} following
+              {profileData.followers.length} followers,{' '}
+              {profileData.following.length} following
             </div>
             {session && session.user?.email !== profileData.user.email && (
               <div className="flex gap-4">
