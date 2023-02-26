@@ -1,3 +1,12 @@
+## [0.9.2](https://github.com/krshkun/LocaLink/compare/v0.9.1...v0.9.2) (2023-02-26)
+
+
+### Bug Fixes
+
+* chat not found on prisma ([529a433](https://github.com/krshkun/LocaLink/commit/529a4330e7735b4b35fcb23c709df366dacc6ed8))
+
+
+
 ## [0.9.1](https://github.com/krshkun/LocaLink/compare/v0.9.0...v0.9.1) (2023-02-26)
 
 
@@ -41,15 +50,6 @@
 ### Features
 
 * added api routes ([7b7e3fb](https://github.com/krshkun/LocaLink/commit/7b7e3fb0b538e9da1627d88b8820fbf0b0ec0985))
-
-
-
-# [0.6.0](https://github.com/krshkun/LocaLink/compare/v0.5.1...v0.6.0) (2023-02-25)
-
-
-### Features
-
-* home page ([13cf144](https://github.com/krshkun/LocaLink/commit/13cf14412df2a1b74196a1020ce9e0a0a8d16d10))
 
 
 
