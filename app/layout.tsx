@@ -6,6 +6,8 @@ import { NavigationMenu, BaseLayout } from 'kresco/esm/src'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
+import prisma from 'lib/prisma'
+import { Profile, User } from '@prisma/client'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -20,6 +22,23 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const session = await getServerSession()
+
+  let user:
+    | (User & {
+        profile: Profile | null
+      })
+    | null = null
+
+  if (session) {
+    user = await prisma.user.findUnique({
+      where: {
+        email: session?.user?.email as string
+      },
+      include: {
+        profile: true
+      }
+    })
+  }
 
   return (
     <BaseLayout className={poppins.variable}>
@@ -53,6 +72,11 @@ export default async function RootLayout({
                 <ul className="flex flex-col space-y-2">
                   <NavigationMenu.Link href="/api/auth/signout">
                     Sign out
+                  </NavigationMenu.Link>
+                  <NavigationMenu.Link href="/dashboard">
+                    {user?.profile?.id
+                      ? 'Dashboard'
+                      : 'Help others learn about your culture'}
                   </NavigationMenu.Link>
                 </ul>
               </NavigationMenu.Content>

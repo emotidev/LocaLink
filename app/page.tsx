@@ -3,7 +3,7 @@ import * as React from 'react'
 
 export default function Page() {
   return (
-    <div className="w-full h-[66.66vh] flex flex-col items-center justify-center space-y-8 p-4 xs:p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24 2xl:p-28">
+    <div className="w-full min-h-[66.66vh] flex flex-col items-center justify-center space-y-8 p-4 xs:p-8 sm:p-12 md:p-16 lg:p-20 xl:p-24 2xl:p-28">
       <h1>Connecting Cultures</h1>
       <p className="max-w-prose text-center">
         Let{"'"}s be honest, the best knowledge about a culture is from the

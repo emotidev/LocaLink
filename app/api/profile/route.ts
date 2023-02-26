@@ -6,6 +6,16 @@ export async function GET(req: Request) {
 
   const url = new URL(req.url)
 
+  const include = {
+    _count: true,
+    user: true,
+    culture: true,
+    chats: true,
+    posts: true,
+    followers: true,
+    following: true
+  }
+
   const me = new Boolean(url.searchParams.get('me'))
   const all = new Boolean(url.searchParams.get('all'))
   const id = url.searchParams.get('id')
@@ -24,7 +34,9 @@ export async function GET(req: Request) {
 
   try {
     if (all) {
-      const profiles = await prisma.profile.findMany()
+      const profiles = await prisma.profile.findMany({
+        include
+      })
 
       return new Response(JSON.stringify(profiles), {
         headers: {
@@ -42,6 +54,18 @@ export async function GET(req: Request) {
     const profile = await prisma.profile.findUnique({
       where: {
         userId: user?.id as string
+      },
+      include: {
+        _count: true,
+        user: true,
+        culture: {
+          select: {
+            name: true
+          }
+        },
+        chats: true,
+        followers: true,
+        following: true
       }
     })
 
@@ -51,7 +75,7 @@ export async function GET(req: Request) {
       })
     }
 
-    return new Response(JSON.stringify(user), {
+    return new Response(JSON.stringify(profile), {
       headers: {
         'content-type': 'application/json'
       }

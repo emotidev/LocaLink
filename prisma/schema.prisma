@@ -44,7 +44,6 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
   profile       Profile?
   following     Profile[] @relation("Following")
   followers     Profile[] @relation("Followers")
@@ -67,7 +66,7 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String
   content   String?
-  author    User     @relation(fields: [authorId], references: [id])
+  author    Profile  @relation(fields: [authorId], references: [id])
   authorId  String
   culture   Culture  @relation(fields: [cultureId], references: [id])
   cultureId String
@@ -83,6 +82,7 @@ model Profile {
   culture   Culture @relation(fields: [cultureId], references: [id])
   cultureId String
   chats     Chat[]
+  posts     Post[]
 }
 
 model Culture {
